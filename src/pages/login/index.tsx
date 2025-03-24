@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 
-import { ActivityIndicator, Alert, Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { style } from "./styles";
-import logo from '../../assets/logo.png'
 import { MaterialIcons, Octicons } from '@expo/vector-icons';
+import { ActivityIndicator, Alert, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import logo from '../../assets/logo.png';
+import { style } from "./styles";
 
-import { themas } from "../../global/themes";
-import { Input } from "../../components/input";
 import { Button } from "../../components/button";
+import { Input } from "../../components/input";
+import { themas } from "../../global/themes";
+import {useNavigation, NavigationProp } from '@react-navigation/native'
 
 
 export default function Login (){
-  const [email, setEmail]= useState('')
-  const [password, setPassword] = useState('')
+
+  const navigation = useNavigation<NavigationProp<any>>()
+
+  const [email, setEmail]= useState('a')
+  const [password, setPassword] = useState('a')
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
@@ -23,17 +27,13 @@ export default function Login (){
       if (!email || !password) {
         return Alert.alert('Atenção', 'Informe os campos obrigatórios');
       }
+       navigation.reset({routes:[{name:"BottomRoutes"}]})
 
-      setTimeout(() => {
-        if(email == 'iagonovaes19@gmail.com' && password == '123456'){
-          Alert.alert('Logado com sucesso!');
-        }else {
-          Alert.alert('usuário não cadastrado!');
-        }
-        setLoading(false);
-      }, 1000);
+      console.log("Logou")
     } catch (error) {
       console.log(error);
+    }finally{
+      setLoading(false)
     }
   }
 
